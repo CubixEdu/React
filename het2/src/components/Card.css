@@ -1,0 +1,15 @@
+.card-container {
+
+}
+
+.front {
+    display: none;
+}
+
+.flipped > .front {
+    display: unset;
+}
+
+.flipped > .back {
+    display: none;
+}
