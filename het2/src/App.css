@@ -10,7 +10,8 @@
 
 .game {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 96px);
+  grid-template-rows: repeat(2, 144px);
   justify-content: start;
 }
 
