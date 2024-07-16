@@ -33,6 +33,8 @@ const update = (prevDeck, id, newValues) => {
     })
 }
 
+const getFlipped = deck => deck.filter(item => item.isFlipped && !item.isFound);
+
 function App() {
     const [deck, setDeck] = useState(initialDeck);
     const gameOver = !Boolean(deck.find(item => !item.isFound));
@@ -55,7 +57,7 @@ function App() {
     const handleClick = (id) => {
         setDeck(prev => {
             const target = prev.find(item => item.id === id);
-            const flipped = prev.filter(item => item.isFlipped && !item.isFound);
+            const flipped = getFlipped(prev);
 
             if (target.isFound || (flipped.length > 1 && !target.isFlipped)) {
                 return prev;
@@ -73,7 +75,7 @@ function App() {
                 return item;
             })
 
-            const newFlipped = newDeck.filter(item => item.isFlipped && !item.isFound)
+            const newFlipped = getFlipped(newDeck)
 
             if (newFlipped.length === 2) {
                 const cardOne = newFlipped[0];
@@ -98,8 +100,7 @@ function App() {
         <div className="game-container">
             {gameOver && (
                 <div>
-                    GAME OVER
-                    <button onClick={reset}>reset</button>
+                    <button onClick={reset}>Play Again</button>
                 </div>
             )}
             <div className="game">
