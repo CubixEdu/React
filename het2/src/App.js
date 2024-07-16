@@ -5,7 +5,7 @@ import DIAMOND from './assets/card-diamonds-1.png';
 import HEARTS from './assets/card-hearts-1.png';
 import SPADES from './assets/card-spades-1.png';
 import {Card} from "./components/Card";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const cards = [CLUB, DIAMOND, HEARTS, SPADES].map((item, index) => ({
     type: index,
@@ -36,6 +36,21 @@ const update = (prevDeck, id, newValues) => {
 function App() {
     const [deck, setDeck] = useState(initialDeck);
     const gameOver = !Boolean(deck.find(item => !item.isFound));
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setDeck(prev => {
+                return prev.map(item => item.isFound ? item : {
+                    ...item,
+                    isFlipped: false,
+                })
+            });
+        }, 1000)
+
+        return () => {
+            clearTimeout(timeoutId);
+        }
+    }, [deck]);
 
     const handleClick = (id) => {
         setDeck(prev => {
