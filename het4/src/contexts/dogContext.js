@@ -19,6 +19,13 @@ export const DogProvider = ({ children }) => {
         list: dogList,
         delete: (id) => setDogList(prev => prev.filter(item => item.id !== id)),
         create: (name, url) => setDogList(prev => [...prev, createDog(name, url)]),
+        update: (id, values) => setDogList(prev => prev.map(item => {
+            if (item.id === id) {
+                return {...values, id}
+            }
+
+            return item;
+        }))
     };
 
     return <DogContext.Provider value={value}>{children}</DogContext.Provider>;

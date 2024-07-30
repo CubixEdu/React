@@ -7,6 +7,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {DogProvider} from "./contexts/dogContext";
 import {DogList} from "./pages/DogList";
 import {AddNew} from "./pages/AddNew";
+import {EditDog} from "./pages/EditDog";
 
 const router = createBrowserRouter([
         {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
                 {
                     path: "/new",
                     element: <AddNew />
+                },
+                {
+                    path: "/edit/:dogId",
+                    element: <EditDog />
                 }
                 ],
         },

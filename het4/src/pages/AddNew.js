@@ -39,7 +39,7 @@ export const AddNew = () => {
         <Stack spacing={2}>
             <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)}/>
             <FormControl>
-                <InputLabel htmlFor="image-url">Password</InputLabel>
+                <InputLabel htmlFor="image-url">Image Url</InputLabel>
                 <OutlinedInput
                     id="image-url"
                     label="Image Url"
