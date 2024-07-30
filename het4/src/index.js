@@ -3,39 +3,56 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {DogProvider} from "./contexts/dogContext";
+import {createBrowserRouter, redirect, RouterProvider} from "react-router-dom";
+import {DogProvider, useDogs} from "./contexts/dogContext";
 import {DogList} from "./pages/DogList";
 import {AddNew} from "./pages/AddNew";
 import {EditDog} from "./pages/EditDog";
 
-const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <App/>,
-            children: [
-                {
-                    path: "/",
-                    element: <DogList />
-                },
-                {
-                    path: "/new",
-                    element: <AddNew />
-                },
-                {
-                    path: "/edit/:dogId",
-                    element: <EditDog />
-                }
+
+
+const RootRoutes = () => {
+    const dogs = useDogs();
+
+    const router = createBrowserRouter([
+            {
+                path: "/",
+                element: <App/>,
+                children: [
+                    {
+                        path: "/",
+                        element: <DogList />
+                    },
+                    {
+                        path: "/new",
+                        element: <AddNew />
+                    },
+                    {
+                        path: "/edit/:dogId",
+                        element: <EditDog />,
+                        loader: ({params}) => {
+                            const dog = dogs.list.find(dog => dog.id === params.dogId);
+
+                            if (!dog) {
+                                return redirect('/');
+                            }
+
+                            return dog;
+                        }
+                    }
                 ],
-        },
-    ]
-)
+            },
+        ]
+    )
+
+     return   <RouterProvider router={router} />
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <DogProvider>
-            <RouterProvider router={router} />
+            <RootRoutes />
         </DogProvider>
     </React.StrictMode>
 );

@@ -14,8 +14,7 @@ const initialState = [
 export const DogProvider = ({ children }) => {
     const [dogList, setDogList] = React.useState(initialState);
 
-    // todo: memo
-    const value = {
+    const value = useMemo(() => ({
         list: dogList,
         delete: (id) => setDogList(prev => prev.filter(item => item.id !== id)),
         create: (name, url) => setDogList(prev => [...prev, createDog(name, url)]),
@@ -26,7 +25,7 @@ export const DogProvider = ({ children }) => {
 
             return item;
         }))
-    };
+    }), [dogList, setDogList]);
 
     return <DogContext.Provider value={value}>{children}</DogContext.Provider>;
 };
