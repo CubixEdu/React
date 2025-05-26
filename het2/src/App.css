@@ -1,0 +1,16 @@
+.game-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.game {
+    display: grid;
+    grid-template-columns: repeat(4, 96px);
+    grid-template-rows: repeat(2, 144px);
+    justify-content: start;
+}
